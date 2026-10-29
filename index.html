@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#1d1440">
-<title>Misi Petualangan Kata — 1000+ Soal Literasi Bahasa Inggris</title>
+<title>Misi Petualangan Kata — 2000+ Soal Literasi Bahasa Inggris</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 :root{
@@ -105,7 +105,8 @@ body{
 .level-card .lv-emoji{font-size:clamp(20px,2.4vw,26px);line-height:1.2}
 .level-card .lv-name{font-weight:900;font-size:clamp(13px,1.3vw,16px);color:#1f2340}
 .level-card .lv-en{font-size:10px;font-weight:800;color:#9aa0c0;text-transform:uppercase;letter-spacing:1px}
-.level-card .lv-count{font-size:10px;font-weight:800;color:#b6bad6;margin-top:1px}
+.level-card .lv-desc{font-size:9px;font-weight:700;color:#b6bad6;margin-top:2px;text-align:center;line-height:1.15;padding:0 2px}
+.level-card .lv-count{font-size:10px;font-weight:800;color:#b6bad6;margin-top:2px}
 .level-card:hover{transform:translateY(-3px);border-color:#cdd3f2}
 .level-card.sel{
   border-color:var(--c);background:#fff;
@@ -129,6 +130,7 @@ body{
 .start-row{position:relative;display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;margin-top:6px}
 .bank-info{position:relative;margin-top:14px;font-size:13px;font-weight:800;color:#9aa0c0}
 .bank-info b{color:#5b47d6}
+.tips{position:relative;margin-top:10px;font-size:12px;font-weight:700;color:#9aa0c0;text-align:center}
 
 /* ---------- GAME ---------- */
 #screen-game{gap:clamp(8px,1.2vw,14px)}
@@ -181,8 +183,32 @@ body{
   font-weight:900;font-size:clamp(11px,1.1vw,13px);letter-spacing:1.1px;
   text-transform:uppercase;padding:7px 16px;border-radius:999px;margin-bottom:12px;
 }
-.q-prompt{font-size:clamp(19px,2.6vw,34px);line-height:1.3;font-weight:800;letter-spacing:-.3px;margin-bottom:8px}
-.q-sub{color:var(--muted);font-weight:700;font-size:clamp(12px,1.3vw,16px);margin-bottom:clamp(12px,2vw,22px)}
+.prompt-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:8px}
+.q-prompt{font-size:clamp(19px,2.6vw,34px);line-height:1.3;font-weight:800;letter-spacing:-.3px;flex:1;min-width:0}
+.q-sub{color:var(--muted);font-weight:700;font-size:clamp(12px,1.3vw,16px);margin-bottom:4px}
+.q-sub-id{color:#8b90b8;font-weight:700;font-style:italic;font-size:clamp(12px,1.3vw,15px);margin-bottom:clamp(12px,2vw,20px)}
+
+/* Tombol pelafalan */
+.speak-btn{
+  background:linear-gradient(180deg,#8a7bff,#5b47d6);color:#fff;border:none;
+  border-radius:12px;width:46px;height:46px;font-size:20px;cursor:pointer;
+  box-shadow:0 4px 0 var(--brand-dark);transition:transform .1s;
+  flex-shrink:0;display:flex;align-items:center;justify-content:center;
+}
+.speak-btn:active{transform:translateY(3px);box-shadow:0 1px 0 var(--brand-dark)}
+
+/* Kotak feedback arti kata */
+.feedback{
+  display:flex;align-items:center;justify-content:space-between;gap:14px;
+  margin-top:clamp(14px,2.2vw,22px);padding:14px 20px;
+  border-radius:18px;border:3px solid;animation:fadeUp .3s ease;
+}
+.feedback.ok{background:#dcfce7;border-color:var(--good);color:#065f46}
+.feedback.no{background:#fee2e2;border-color:var(--bad);color:#7f1d1d}
+.feedback .fb-main{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-weight:800;font-size:clamp(14px,1.6vw,19px);min-width:0}
+.feedback .fb-icon{font-weight:900;white-space:nowrap}
+.feedback .fb-word{font-family:'Courier New',monospace;font-weight:900}
+.feedback .fb-meaning{opacity:.85;font-weight:800}
 
 .options{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(8px,1.2vw,14px)}
 @media(max-width:820px){.options{grid-template-columns:1fr}}
@@ -278,6 +304,29 @@ body{
 .result-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
 .result-actions .btn.ghost{color:var(--ink);border-color:#d7dcf3;background:#f7f8ff}
 .result-actions .btn.ghost:hover{background:#ecefff}
+
+/* ---------- MODAL KAMUS ---------- */
+.modal{position:fixed;inset:0;background:rgba(10,5,30,.78);backdrop-filter:blur(6px);z-index:10001;display:flex;align-items:center;justify-content:center;padding:18px;animation:fadeUp .25s ease}
+.modal-content{background:#fff;color:var(--ink);border-radius:24px;width:min(760px,100%);max-height:88vh;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.55)}
+.modal-header{display:flex;align-items:center;justify-content:space-between;padding:18px 24px;background:linear-gradient(90deg,#f0edff,#e2dcff);gap:12px}
+.modal-header h2{font-size:clamp(17px,2.1vw,23px)}
+.modal-close{background:none;border:none;font-size:22px;cursor:pointer;color:#6b7194;padding:4px 12px;border-radius:8px;font-weight:900}
+.modal-close:hover{background:rgba(0,0,0,.06)}
+.modal-body{padding:16px 22px 22px;overflow-y:auto;flex:1}
+#dictSearch{width:100%;padding:12px 18px;border-radius:12px;border:3px solid #e2e6f7;font-family:inherit;font-size:16px;margin-bottom:16px;outline:none;color:var(--ink);font-weight:700}
+#dictSearch:focus{border-color:var(--brand)}
+.dict-level{margin-bottom:22px}
+.dict-level>h3{font-size:clamp(15px,1.7vw,18px);color:#5b47d6;margin-bottom:10px;padding-bottom:6px;border-bottom:2px solid #eef0fb;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.dict-level>h3 small{color:#9aa0c0;font-weight:700;text-transform:none;letter-spacing:0;font-size:12px}
+.dict-cat{margin-bottom:12px}
+.dict-cat>h4{font-size:11px;color:#8b90b8;text-transform:uppercase;letter-spacing:1.2px;margin-bottom:6px;font-weight:900}
+.dict-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:6px}
+.dict-item{background:#f7f8ff;border:2px solid #e2e6f7;border-radius:10px;padding:8px 10px;display:flex;align-items:center;gap:6px;transition:.15s}
+.dict-item:hover{border-color:var(--brand);background:#f0edff}
+.dict-item .dw{font-weight:900;font-size:14px;color:#1f2340;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis}
+.dict-item .dm{font-size:12px;color:#6b7194;font-weight:700;white-space:nowrap;max-width:45%;overflow:hidden;text-overflow:ellipsis}
+.dict-item .dspeak{background:none;border:none;cursor:pointer;font-size:14px;padding:2px 4px;flex-shrink:0}
+.dict-empty{text-align:center;color:#9aa0c0;font-weight:700;padding:30px 10px}
 </style>
 </head>
 <body>
@@ -292,7 +341,7 @@ body{
     <div class="home-card">
       <div class="logo">🎯</div>
       <h1>Misi Petualangan Kata</h1>
-      <p class="lead"> • 1000+ Soal Literasi Bahasa Inggris • 6 Tingkat • </p>
+      <p class="lead">• 2000+ Soal Literasi Bahasa Inggris • 6 Tingkat • Ramah Bahasa Indonesia</p>
 
       <div class="choice">
         <div class="sec-label">1. Pilih Tingkat</div>
@@ -319,8 +368,10 @@ body{
 
       <div class="start-row">
         <button class="btn primary big" id="btnStart">🚀 Mulai Bermain</button>
+        <button class="btn ghost" id="btnDict" style="color:#1f2340;border-color:#d7dcf3;background:#f7f8ff">📖 Kamus Mini</button>
       </div>
       <p class="bank-info" id="bankInfo"></p>
+      <p class="tips">💡 Tips: tekan angka <b>1–4</b> di keyboard untuk menjawab, <b>Enter</b> untuk lanjut. Klik 🔊 untuk mendengar pelafalan kata.</p>
     </div>
   </section>
 
@@ -339,10 +390,22 @@ body{
     <div class="stage">
       <div class="card" id="questionCard">
         <div class="tag" id="qTag">📚</div>
-        <h2 class="q-prompt" id="qPrompt"></h2>
+        <div class="prompt-row">
+          <h2 class="q-prompt" id="qPrompt"></h2>
+          <button class="speak-btn hidden" id="btnSpeakQ" title="Dengarkan pelafalan">🔊</button>
+        </div>
         <p class="q-sub" id="qSub"></p>
+        <p class="q-sub-id" id="qSubId"></p>
         <div class="options" id="options"></div>
         <div class="anagram-area hidden" id="anagramArea"></div>
+        <div class="feedback hidden" id="feedbackBox">
+          <div class="fb-main">
+            <span class="fb-icon" id="fbIcon">✅</span>
+            <span class="fb-word" id="fbWord"></span>
+            <span class="fb-meaning" id="fbMeaning"></span>
+          </div>
+          <button class="speak-btn" id="btnSpeakFb" title="Dengarkan pelafalan">🔊</button>
+        </div>
       </div>
     </div>
 
@@ -370,22 +433,36 @@ body{
 
 </main>
 
+<!-- ================= MODAL KAMUS ================= -->
+<div class="modal hidden" id="dictModal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2>📖 Kamus Mini — Belajar Sebelum Bermain</h2>
+      <button class="modal-close" id="btnCloseDict" title="Tutup">✕</button>
+    </div>
+    <div class="modal-body">
+      <input type="text" id="dictSearch" placeholder="🔍 Cari kata bahasa Inggris atau arti Indonesia...">
+      <div id="dictList"></div>
+    </div>
+  </div>
+</div>
+
 <script>
 /* ==================================================================
-   0. DEFINISI TINGKAT
+   0. DEFINISI TINGKAT (dengan deskripsi Indonesia)
    ================================================================== */
 const LEVELS = [
-  {id:'dasar',    name:'Dasar',    en:'Beginner',          emoji:'🌱', color:'#22c55e'},
-  {id:'pemula',   name:'Pemula',   en:'Elementary',        emoji:'🐣', color:'#06b6d4'},
-  {id:'menengah', name:'Menengah', en:'Intermediate',      emoji:'🚀', color:'#6c5ce7'},
-  {id:'lancar',   name:'Lancar',   en:'Upper-Intermediate',emoji:'⚡', color:'#f59e0b'},
-  {id:'mahir',    name:'Mahir',    en:'Advanced',          emoji:'🎓', color:'#ec4899'},
-  {id:'ahli',     name:'Ahli',     en:'Expert',            emoji:'👑', color:'#ef4444'}
+  {id:'dasar',    name:'Dasar',    en:'Beginner',          emoji:'🌱', color:'#22c55e', desc:'Kata sehari-hari'},
+  {id:'pemula',   name:'Pemula',   en:'Elementary',        emoji:'🐣', color:'#06b6d4', desc:'Kosakata umum'},
+  {id:'menengah', name:'Menengah', en:'Intermediate',      emoji:'🚀', color:'#6c5ce7', desc:'Sekolah & kerja'},
+  {id:'lancar',   name:'Lancar',   en:'Upper-Intermediate',emoji:'⚡', color:'#f59e0b', desc:'Akademik & diskusi'},
+  {id:'mahir',    name:'Mahir',    en:'Advanced',          emoji:'🎓', color:'#ec4899', desc:'Tingkat lanjut'},
+  {id:'ahli',     name:'Ahli',     en:'Expert',            emoji:'👑', color:'#ef4444', desc:'Kata profesional'}
 ];
 
 /* ==================================================================
-   1. BANK KATA PER TINGKAT
-   format: { w:word, d:definition, c:category, e:example with ___, h:hint id }
+   1. BANK KATA PER TINGKAT (DIPERLUAS)
+   format: { w:word, d:definition, c:category, e:example with ___, h:arti indonesia }
    ================================================================== */
 const DATA = {
 
@@ -397,12 +474,28 @@ dasar: [
 {w:"yellow",    d:"the color of the sun and bananas",            c:"Colors",       e:"She has a ___ bag.",                              h:"kuning"},
 {w:"black",     d:"the color of night and coal",                 c:"Colors",       e:"My shoes are ___.",                               h:"hitam"},
 {w:"white",     d:"the color of milk and snow",                  c:"Colors",       e:"The teacher writes on a ___ board.",              h:"putih"},
+{w:"orange",    d:"the color of a carrot or a pumpkin",          c:"Colors",       e:"She likes ___ juice.",                            h:"jingga/oranye"},
+{w:"purple",    d:"the color made by mixing red and blue",       c:"Colors",       e:"The flower is ___.",                              h:"ungu"},
+{w:"pink",      d:"a light red color",                           c:"Colors",       e:"Her dress is ___.",                               h:"merah muda"},
+{w:"brown",     d:"the color of chocolate",                      c:"Colors",       e:"He has ___ hair.",                                h:"cokelat"},
+{w:"grey",      d:"the color between black and white",           c:"Colors",       e:"The sky is ___ today.",                           h:"abu-abu"},
 {w:"cat",       d:"a small animal that says meow",               c:"Animals",      e:"My ___ sleeps on the sofa.",                      h:"kucing"},
 {w:"dog",       d:"an animal that barks and wags its tail",      c:"Animals",      e:"The ___ runs in the yard.",                       h:"anjing"},
 {w:"fish",      d:"an animal that lives in water",               c:"Animals",      e:"There are many ___ in the river.",                h:"ikan"},
 {w:"bird",      d:"an animal with wings that can fly",           c:"Animals",      e:"A ___ sings outside my window.",                  h:"burung"},
 {w:"cow",       d:"a big farm animal that gives milk",           c:"Animals",      e:"The farmer feeds the ___.",                       h:"sapi"},
 {w:"rabbit",    d:"a small animal with long ears",               c:"Animals",      e:"The ___ eats carrots.",                           h:"kelinci"},
+{w:"duck",      d:"a bird that swims and says quack",            c:"Animals",      e:"The ___ swims in the pond.",                      h:"bebek"},
+{w:"chicken",   d:"a farm bird that lays eggs",                  c:"Animals",      e:"We have ten ___ on the farm.",                    h:"ayam"},
+{w:"horse",     d:"a big animal that people ride",               c:"Animals",      e:"The man rides a ___.",                            h:"kuda"},
+{w:"goat",      d:"a farm animal with horns and a beard",        c:"Animals",      e:"The ___ eats grass.",                             h:"kambing"},
+{w:"sheep",     d:"a farm animal with thick wool",               c:"Animals",      e:"The ___ has soft wool.",                          h:"domba"},
+{w:"tiger",     d:"a big wild cat with orange and black stripes",c:"Animals",      e:"The ___ is a dangerous animal.",                  h:"harimau"},
+{w:"elephant",  d:"a very large animal with a long trunk",       c:"Animals",      e:"An ___ has big ears.",                            h:"gajah"},
+{w:"monkey",    d:"an animal that climbs trees and likes bananas",c:"Animals",     e:"The ___ jumps from tree to tree.",                h:"monyet"},
+{w:"snake",     d:"a long animal with no legs",                  c:"Animals",      e:"The ___ moves slowly on the ground.",             h:"ular"},
+{w:"mouse",     d:"a small animal with a long tail",             c:"Animals",      e:"A ___ is afraid of cats.",                        h:"tikus"},
+{w:"frog",      d:"a small green animal that jumps",             c:"Animals",      e:"The ___ lives near the water.",                   h:"katak"},
 {w:"book",      d:"a set of pages that you read",                c:"School Items", e:"I read a ___ every night.",                       h:"buku"},
 {w:"pencil",    d:"a tool for writing that can be erased",       c:"School Items", e:"May I borrow your ___?",                          h:"pensil"},
 {w:"ruler",     d:"a tool for drawing straight lines",           c:"School Items", e:"Use a ___ to draw a straight line.",              h:"penggaris"},
@@ -411,32 +504,72 @@ dasar: [
 {w:"chair",     d:"a seat with a back and four legs",            c:"School Items", e:"Please sit on the ___.",                          h:"kursi"},
 {w:"table",     d:"furniture with a flat top and legs",          c:"School Items", e:"The books are on the ___.",                       h:"meja"},
 {w:"door",      d:"you open this to enter a room",               c:"School Items", e:"Please close the ___.",                           h:"pintu"},
+{w:"pen",       d:"a tool for writing with ink",                 c:"School Items", e:"Can I borrow your ___?",                          h:"pulpen"},
+{w:"notebook",  d:"a book with empty pages for writing",         c:"School Items", e:"I write notes in my ___.",                        h:"buku catatan"},
+{w:"desk",      d:"a table used for studying",                   c:"School Items", e:"My books are on the ___.",                        h:"meja belajar"},
+{w:"clock",     d:"a machine that shows the time",               c:"School Items", e:"The ___ on the wall is broken.",                  h:"jam"},
 {w:"mother",    d:"your female parent",                          c:"Family",       e:"My ___ cooks delicious food.",                    h:"ibu"},
 {w:"father",    d:"your male parent",                            c:"Family",       e:"My ___ works in an office.",                      h:"ayah"},
 {w:"sister",    d:"a girl with the same parents as you",         c:"Family",       e:"My ___ is older than me.",                        h:"kakak perempuan"},
 {w:"brother",   d:"a boy with the same parents as you",          c:"Family",       e:"I have one ___.",                                 h:"kakak laki-laki"},
+{w:"grandmother",d:"your parent's mother",                       c:"Family",       e:"My ___ tells good stories.",                      h:"nenek"},
+{w:"grandfather",d:"your parent's father",                       c:"Family",       e:"My ___ likes to garden.",                         h:"kakek"},
+{w:"uncle",     d:"your parent's brother",                       c:"Family",       e:"My ___ lives in Surabaya.",                       h:"om"},
+{w:"aunt",      d:"your parent's sister",                        c:"Family",       e:"My ___ is a kind woman.",                         h:"tante"},
+{w:"cousin",    d:"the child of your uncle or aunt",             c:"Family",       e:"I play with my ___ every weekend.",               h:"sepupu"},
+{w:"baby",      d:"a very young child",                          c:"Family",       e:"The ___ is sleeping now.",                        h:"bayi"},
 {w:"hand",      d:"the part of the body at the end of the arm",  c:"Body",         e:"Raise your ___ to answer.",                       h:"tangan"},
 {w:"eye",       d:"the part of the body you see with",           c:"Body",         e:"Close your ___ and count to ten.",                h:"mata"},
 {w:"ear",       d:"the part of the body you hear with",          c:"Body",         e:"I listen to music with my ___.",                  h:"telinga"},
 {w:"nose",      d:"the part of the face you smell with",         c:"Body",         e:"The dog has a wet ___.",                          h:"hidung"},
+{w:"head",      d:"the top part of your body",                   c:"Body",         e:"Put the hat on your ___.",                        h:"kepala"},
+{w:"hair",      d:"the thin threads on your head",               c:"Body",         e:"She has long black ___.",                         h:"rambut"},
+{w:"mouth",     d:"the part you use to eat and speak",           c:"Body",         e:"Open your ___ and say ah.",                       h:"mulut"},
+{w:"leg",       d:"the long body part between hip and foot",     c:"Body",         e:"My ___ hurts after running.",                     h:"kaki"},
+{w:"foot",      d:"the part of the leg you walk on",             c:"Body",         e:"My left ___ is small.",                           h:"telapak kaki"},
+{w:"finger",    d:"one of the five parts on your hand",          c:"Body",         e:"I have ten ___.",                                 h:"jari"},
 {w:"eat",       d:"to put food in your mouth",                   c:"Verbs",        e:"We ___ rice every day.",                          h:"makan"},
 {w:"drink",     d:"to take water into your mouth",               c:"Verbs",        e:"I ___ a glass of milk every morning.",            h:"minum"},
 {w:"run",       d:"to move quickly on your feet",                c:"Verbs",        e:"The children ___ in the park.",                   h:"berlari"},
 {w:"sleep",     d:"to rest with your eyes closed",               c:"Verbs",        e:"I ___ at nine o'clock.",                          h:"tidur"},
 {w:"read",      d:"to look at words and understand them",        c:"Verbs",        e:"I like to ___ storybooks.",                       h:"membaca"},
 {w:"write",     d:"to make letters with a pen",                  c:"Verbs",        e:"Please ___ your name here.",                      h:"menulis"},
+{w:"see",       d:"to notice with your eyes",                    c:"Verbs",        e:"I can ___ the mountain from here.",               h:"melihat"},
+{w:"hear",      d:"to notice with your ears",                    c:"Verbs",        e:"Can you ___ the music?",                          h:"mendengar"},
+{w:"go",        d:"to move to another place",                    c:"Verbs",        e:"We ___ to school at seven.",                      h:"pergi"},
+{w:"play",      d:"to have fun doing something",                 c:"Verbs",        e:"The children ___ in the garden.",                 h:"bermain"},
+{w:"help",      d:"to make things easier for someone",           c:"Verbs",        e:"Can you ___ me, please?",                         h:"menolong"},
+{w:"open",      d:"to move something so it is not closed",       c:"Verbs",        e:"Please ___ the window.",                          h:"membuka"},
+{w:"close",     d:"to shut something",                           c:"Verbs",        e:"Please ___ the door.",                            h:"menutup"},
+{w:"sit",       d:"to rest on a chair",                          c:"Verbs",        e:"Please ___ down.",                                h:"duduk"},
+{w:"wash",      d:"to clean with water",                         c:"Verbs",        e:"___ your hands before eating.",                   h:"mencuci"},
 {w:"big",       d:"very large in size",                          c:"Adjectives",   e:"An elephant is a ___ animal.",                    h:"besar"},
 {w:"small",     d:"not large",                                   c:"Adjectives",   e:"A mouse is a ___ animal.",                        h:"kecil"},
 {w:"hot",       d:"having a high temperature",                   c:"Adjectives",   e:"The soup is very ___.",                           h:"panas"},
 {w:"cold",      d:"having a low temperature",                    c:"Adjectives",   e:"The water is ___ in the morning.",                h:"dingin"},
 {w:"happy",     d:"feeling good and smiling",                    c:"Adjectives",   e:"She is ___ because it is her birthday.",          h:"senang"},
 {w:"sad",       d:"feeling unhappy",                             c:"Adjectives",   e:"He is ___ because his cat is lost.",              h:"sedih"},
+{w:"tall",      d:"having a great height",                       c:"Adjectives",   e:"My father is very ___.",                          h:"tinggi"},
+{w:"short",     d:"not tall",                                    c:"Adjectives",   e:"The boy is ___.",                                 h:"pendek"},
+{w:"new",       d:"recently made",                               c:"Adjectives",   e:"I have a ___ bag.",                               h:"baru"},
+{w:"old",       d:"having existed for a long time",              c:"Adjectives",   e:"My grandfather is ___.",                          h:"tua"},
+{w:"good",      d:"of high quality",                             c:"Adjectives",   e:"This is a ___ book.",                             h:"bagus"},
+{w:"bad",       d:"not good",                                    c:"Adjectives",   e:"The weather is ___ today.",                       h:"buruk"},
+{w:"beautiful", d:"very nice to look at",                        c:"Adjectives",   e:"The flowers are ___.",                            h:"cantik/indah"},
 {w:"apple",     d:"a round red or green fruit",                  c:"Food",         e:"I eat an ___ every day.",                         h:"apel"},
 {w:"milk",      d:"a white drink from a cow",                    c:"Food",         e:"I drink ___ before bed.",                         h:"susu"},
 {w:"rice",      d:"small white grains that we cook",             c:"Food",         e:"We eat ___ with vegetables.",                     h:"nasi"},
 {w:"water",     d:"a clear liquid that we drink",                c:"Food",         e:"Please give me a glass of ___.",                  h:"air"},
+{w:"bread",     d:"a soft food made from flour",                 c:"Food",         e:"I eat ___ for breakfast.",                        h:"roti"},
+{w:"egg",       d:"a food that comes from a chicken",            c:"Food",         e:"I want two ___s, please.",                        h:"telur"},
+{w:"banana",    d:"a long yellow fruit",                         c:"Food",         e:"The monkey eats a ___.",                          h:"pisang"},
+{w:"sugar",     d:"a sweet white substance",                     c:"Food",         e:"Add some ___ to the tea.",                        h:"gula"},
 {w:"school",    d:"a place where children learn",                c:"Places",       e:"I go to ___ every morning.",                      h:"sekolah"},
-{w:"house",     d:"a building where a family lives",             c:"Places",       e:"We live in a small ___.",                         h:"rumah"}
+{w:"house",     d:"a building where a family lives",             c:"Places",       e:"We live in a small ___.",                         h:"rumah"},
+{w:"park",      d:"a public area with grass and trees",          c:"Places",       e:"We play football in the ___.",                    h:"taman"},
+{w:"shop",      d:"a place where you buy things",                c:"Places",       e:"The ___ is open until nine.",                     h:"toko"},
+{w:"beach",     d:"the sandy area next to the sea",              c:"Places",       e:"We go to the ___ on Sunday.",                     h:"pantai"},
+{w:"mountain",  d:"a very high hill",                            c:"Places",       e:"Mount Bromo is a famous ___.",                    h:"gunung"}
 ],
 
 /* ---------------- PEMULA (Elementary) ---------------- */
@@ -448,32 +581,69 @@ pemula: [
 {w:"bedroom",   d:"a room where you sleep",                       c:"Home",        e:"My ___ is on the second floor.",                  h:"kamar tidur"},
 {w:"bathroom",  d:"a room where you wash yourself",               c:"Home",        e:"I brush my teeth in the ___.",                    h:"kamar mandi"},
 {w:"garden",    d:"an area with plants near a house",             c:"Home",        e:"Grandma waters the plants in the ___.",           h:"taman"},
+{w:"sofa",      d:"a long soft seat for two or more people",      c:"Home",        e:"The cat sleeps on the ___.",                      h:"sofa"},
+{w:"bed",       d:"furniture you sleep on",                       c:"Home",        e:"I make my ___ every morning.",                    h:"tempat tidur"},
+{w:"window",    d:"an opening in a wall with glass",              c:"Home",        e:"Please open the ___ for fresh air.",              h:"jendela"},
+{w:"lamp",      d:"an object that gives light",                   c:"Home",        e:"Turn on the ___; it is dark.",                    h:"lampu"},
 {w:"market",    d:"a place where people buy and sell things",     c:"Places",      e:"We buy vegetables at the ___.",                   h:"pasar"},
 {w:"hospital",  d:"a place where sick people are treated",        c:"Places",      e:"The doctor works in a ___.",                      h:"rumah sakit"},
 {w:"library",   d:"a place where you can borrow books",           c:"Places",      e:"We must be quiet in the ___.",                    h:"perpustakaan"},
+{w:"bank",      d:"a place where you keep money",                 c:"Places",      e:"I need to go to the ___ to save money.",          h:"bank"},
+{w:"restaurant",d:"a place where you buy and eat meals",          c:"Places",      e:"We had dinner at a nice ___.",                    h:"restoran"},
+{w:"cinema",    d:"a place where you watch films",                c:"Places",      e:"Let's watch a movie at the ___.",                 h:"bioskop"},
+{w:"zoo",       d:"a place with many animals for visitors",       c:"Places",      e:"We saw a lion at the ___.",                       h:"kebun binatang"},
+{w:"museum",    d:"a place that shows old and important objects", c:"Places",      e:"The ___ has ancient statues.",                    h:"museum"},
 {w:"teacher",   d:"a person who helps students learn",            c:"Jobs",        e:"Our ___ explains the lesson clearly.",            h:"guru"},
 {w:"doctor",    d:"a person who helps sick people",               c:"Jobs",        e:"The ___ gave me some medicine.",                  h:"dokter"},
 {w:"farmer",    d:"a person who works on a farm",                 c:"Jobs",        e:"The ___ grows rice in the field.",                h:"petani"},
 {w:"driver",    d:"a person who drives a vehicle",                c:"Jobs",        e:"The bus ___ is very careful.",                    h:"sopir"},
+{w:"nurse",     d:"a person who helps doctors care for patients", c:"Jobs",        e:"The ___ gave me my medicine.",                    h:"perawat"},
+{w:"chef",      d:"a person who cooks in a restaurant",           c:"Jobs",        e:"The ___ made a delicious steak.",                 h:"koki"},
+{w:"singer",    d:"a person who sings songs",                     c:"Jobs",        e:"She is a famous ___.",                            h:"penyanyi"},
+{w:"artist",    d:"a person who paints or draws",                 c:"Jobs",        e:"The ___ painted a beautiful picture.",            h:"seniman"},
+{w:"pilot",     d:"a person who flies an aeroplane",              c:"Jobs",        e:"The ___ landed the plane safely.",                h:"pilot"},
+{w:"police officer",d:"a person who keeps people safe and stops crime",c:"Jobs",  e:"The ___ caught the thief.",                       h:"polisi"},
+{w:"fisherman", d:"a person who catches fish",                    c:"Jobs",        e:"The ___ went to sea early.",                      h:"nelayan"},
 {w:"rainy",     d:"having a lot of rain",                         c:"Weather",     e:"Bring an umbrella; it is ___ today.",             h:"hujan"},
 {w:"sunny",     d:"having a lot of sunshine",                     c:"Weather",     e:"It is a ___ day, so let's go outside.",           h:"cerah"},
 {w:"cloudy",    d:"full of clouds",                               c:"Weather",     e:"The sky is ___, so it may rain.",                 h:"berawan"},
 {w:"windy",     d:"having a lot of wind",                         c:"Weather",     e:"It is ___ today, so hold your hat.",              h:"berangin"},
+{w:"stormy",    d:"having strong wind and rain",                  c:"Weather",     e:"It is ___ outside, so stay home.",                h:"badai"},
+{w:"foggy",     d:"full of thick cloud near the ground",          c:"Weather",     e:"Drive slowly; it is very ___.",                   h:"berkabut"},
+{w:"snowy",     d:"having a lot of snow",                         c:"Weather",     e:"The mountain is ___ in winter.",                  h:"bersalju"},
 {w:"tired",     d:"feeling that you need rest",                   c:"Feelings",    e:"I am ___ after the long walk.",                   h:"lelah"},
 {w:"hungry",    d:"feeling that you want to eat",                 c:"Feelings",    e:"I am ___; let's have lunch.",                     h:"lapar"},
 {w:"thirsty",   d:"feeling that you want to drink",               c:"Feelings",    e:"I am ___; I need some water.",                    h:"haus"},
 {w:"angry",     d:"feeling strong dislike about something unfair",c:"Feelings",    e:"He is ___ because his toy is broken.",            h:"marah"},
 {w:"afraid",    d:"feeling fear",                                 c:"Feelings",    e:"She is ___ of the dark.",                         h:"takut"},
+{w:"excited",   d:"feeling very happy about something coming",    c:"Feelings",    e:"I am ___ about the school trip.",                 h:"bersemangat"},
+{w:"bored",     d:"feeling tired because nothing is interesting", c:"Feelings",    e:"He is ___ at home with no friends.",              h:"bosan"},
+{w:"worried",   d:"feeling nervous about a problem",              c:"Feelings",    e:"She is ___ about the exam.",                      h:"khawatir"},
+{w:"surprised", d:"feeling amazed by something unexpected",       c:"Feelings",    e:"I was ___ by the gift.",                          h:"terkejut"},
+{w:"proud",     d:"feeling pleased about something you did",      c:"Feelings",    e:"My parents are ___ of me.",                       h:"bangga"},
+{w:"shy",       d:"afraid to talk to new people",                 c:"Feelings",    e:"The little girl is too ___ to speak.",            h:"malu"},
 {w:"friend",    d:"a person you like being with",                 c:"People",      e:"My best ___ sits next to me.",                    h:"teman"},
 {w:"family",    d:"parents and children together",                c:"People",      e:"My ___ has five members.",                        h:"keluarga"},
 {w:"morning",   d:"the early part of the day",                    c:"Time",        e:"I wake up at six in the ___.",                    h:"pagi"},
 {w:"evening",   d:"the time between afternoon and night",         c:"Time",        e:"We watch TV in the ___.",                         h:"sore"},
+{w:"afternoon", d:"the time between noon and evening",            c:"Time",        e:"We play football in the ___.",                    h:"sore"},
+{w:"night",     d:"the dark part of the day",                     c:"Time",        e:"I sleep at ___ every day.",                       h:"malam"},
+{w:"week",      d:"seven days together",                          c:"Time",        e:"There are seven days in a ___.",                  h:"minggu"},
+{w:"month",     d:"one of the twelve parts of a year",            c:"Time",        e:"My birthday is next ___.",                        h:"bulan"},
+{w:"year",      d:"twelve months together",                       c:"Time",        e:"A ___ has 365 days.",                             h:"tahun"},
+{w:"tomorrow",  d:"the day after today",                          c:"Time",        e:"We will visit grandma ___.",                      h:"besok"},
 {w:"clean",     d:"not dirty",                                    c:"Adjectives",  e:"Please keep your room ___.",                      h:"bersih"},
 {w:"dirty",     d:"not clean",                                    c:"Adjectives",  e:"My shoes are ___ after playing football.",        h:"kotor"},
 {w:"fast",      d:"moving quickly",                               c:"Adjectives",  e:"A cheetah is a very ___ animal.",                 h:"cepat"},
 {w:"slow",      d:"not fast",                                     c:"Adjectives",  e:"A turtle is a ___ animal.",                       h:"lambat"},
 {w:"easy",      d:"not difficult",                                c:"Adjectives",  e:"The test was ___ for me.",                        h:"mudah"},
 {w:"difficult", d:"not easy",                                     c:"Adjectives",  e:"This question is very ___.",                      h:"sulit"},
+{w:"beautiful", d:"very nice to look at",                         c:"Adjectives",  e:"The sunset is ___.",                              h:"indah"},
+{w:"ugly",      d:"not nice to look at",                          c:"Adjectives",  e:"The old building looks ___.",                     h:"jelek"},
+{w:"rich",      d:"having a lot of money",                        c:"Adjectives",  e:"The ___ man bought a big house.",                 h:"kaya"},
+{w:"poor",      d:"having very little money",                     c:"Adjectives",  e:"The ___ boy needs our help.",                     h:"miskin"},
+{w:"quiet",     d:"making very little noise",                     c:"Adjectives",  e:"The library is very ___.",                        h:"tenang"},
+{w:"noisy",     d:"making a lot of noise",                        c:"Adjectives",  e:"The classroom is ___ today.",                     h:"berisik"},
 {w:"listen",    d:"to pay attention to sounds",                   c:"Verbs",       e:"Please ___ to the teacher.",                      h:"mendengar"},
 {w:"speak",     d:"to say words",                                 c:"Verbs",       e:"Can you ___ English?",                            h:"berbicara"},
 {w:"walk",      d:"to move on your feet slowly",                  c:"Verbs",       e:"I ___ to school every day.",                      h:"berjalan"},
@@ -485,7 +655,19 @@ pemula: [
 {w:"cook",      d:"to prepare food with heat",                    c:"Verbs",       e:"My mother can ___ delicious noodles.",            h:"memasak"},
 {w:"borrow",    d:"to take something and return it later",        c:"Verbs",       e:"May I ___ your pen?",                             h:"meminjam"},
 {w:"arrive",    d:"to reach a place",                             c:"Verbs",       e:"We ___ at school at seven.",                      h:"tiba"},
-{w:"choose",    d:"to pick one thing from many",                  c:"Verbs",       e:"Please ___ your favorite color.",                 h:"memilih"}
+{w:"choose",    d:"to pick one thing from many",                  c:"Verbs",       e:"Please ___ your favorite color.",                 h:"memilih"},
+{w:"buy",       d:"to get something by paying money",             c:"Verbs",       e:"I want to ___ a new book.",                       h:"membeli"},
+{w:"sell",      d:"to give something for money",                  c:"Verbs",       e:"They ___ fruit at the market.",                   h:"menjual"},
+{w:"bring",     d:"to take something to a place",                 c:"Verbs",       e:"Please ___ your notebook tomorrow.",              h:"membawa"},
+{w:"send",      d:"to make something go to another place",        c:"Verbs",       e:"I will ___ you a letter.",                        h:"mengirim"},
+{w:"throw",     d:"to make something fly through the air",        c:"Verbs",       e:"Don't ___ rubbish on the floor.",                 h:"melempar"},
+{w:"catch",     d:"to take hold of something moving",             c:"Verbs",       e:"Can you ___ the ball?",                           h:"menangkap"},
+{w:"push",      d:"to move something away from you",              c:"Verbs",       e:"Please ___ the door to open it.",                 h:"mendorong"},
+{w:"pull",      d:"to move something towards you",                c:"Verbs",       e:"___ the rope to ring the bell.",                  h:"menarik"},
+{w:"sick",      d:"not feeling well",                             c:"Health",      e:"I am ___ and cannot go to school.",               h:"sakit"},
+{w:"headache",  d:"a pain in your head",                          c:"Health",      e:"I have a bad ___ today.",                         h:"sakit kepala"},
+{w:"fever",     d:"a body temperature that is too high",          c:"Health",      e:"The child has a high ___.",                       h:"demam"},
+{w:"cough",     d:"to push air out of your throat noisily",       c:"Health",      e:"His ___ is getting better.",                      h:"batuk"}
 ],
 
 /* ---------------- MENENGAH (Intermediate) ---------------- */
@@ -506,16 +688,31 @@ menengah: [
 {w:"destination",   d:"the place you are travelling to",          c:"Travel",        e:"Our final ___ is Yogyakarta.",                    h:"tujuan"},
 {w:"transport",     d:"a way of moving people or things",         c:"Travel",        e:"Public ___ in this city is cheap.",               h:"transportasi"},
 {w:"passenger",     d:"a person travelling in a vehicle",         c:"Travel",        e:"The bus was full of ___.",                        h:"penumpang"},
+{w:"tourist",       d:"a person travelling for pleasure",         c:"Travel",        e:"Many ___ visit Bali every year.",                 h:"wisatawan"},
+{w:"passport",      d:"an official book for travelling abroad",   c:"Travel",        e:"Do not forget your ___ at the airport.",          h:"paspor"},
+{w:"luggage",       d:"the bags you take when you travel",        c:"Travel",        e:"My ___ is too heavy.",                            h:"bagasi"},
+{w:"ticket",        d:"a paper that shows you paid to travel",    c:"Travel",        e:"I bought two ___s for the train.",                h:"tiket"},
+{w:"hotel",         d:"a building where travellers can sleep",    c:"Travel",        e:"We stayed at a small ___.",                       h:"hotel"},
+{w:"souvenir",      d:"something you buy to remember a place",    c:"Travel",        e:"I bought a ___ for my mother.",                   h:"suvenir"},
 {w:"salary",        d:"money paid for work every month",          c:"Work",          e:"His ___ is enough for his family.",               h:"gaji"},
 {w:"employee",      d:"a person who works for a company",         c:"Work",          e:"Every ___ must wear a uniform.",                  h:"karyawan"},
 {w:"manager",       d:"a person who leads a team at work",        c:"Work",          e:"The ___ held a meeting this morning.",            h:"manajer"},
 {w:"customer",      d:"a person who buys something",              c:"Work",          e:"The ___ asked for a discount.",                   h:"pelanggan"},
+{w:"meeting",       d:"a time when people come together to talk", c:"Work",          e:"The ___ starts at nine o'clock.",                 h:"rapat"},
+{w:"company",       d:"a business that sells things or services", c:"Work",          e:"My father works at a big ___.",                   h:"perusahaan"},
+{w:"office",        d:"a room or building where people work",     c:"Work",          e:"The ___ is closed on Sunday.",                    h:"kantor"},
+{w:"project",       d:"a piece of planned work",                  c:"Work",          e:"We must finish this ___ by Friday.",              h:"proyek"},
 {w:"brave",         d:"not afraid in a dangerous situation",      c:"Character",     e:"The ___ boy saved the cat from the tree.",        h:"berani"},
 {w:"curious",       d:"wanting to know or learn something",       c:"Character",     e:"The ___ student asked many questions.",           h:"ingin tahu"},
 {w:"polite",        d:"showing good manners",                     c:"Character",     e:"Always be ___ to your teachers.",                 h:"sopan"},
 {w:"honest",        d:"telling the truth",                        c:"Character",     e:"An ___ person never lies.",                       h:"jujur"},
 {w:"patient",       d:"able to wait calmly",                      c:"Character",     e:"Please be ___; the bus will come soon.",          h:"sabar"},
 {w:"generous",      d:"happy to give to others",                  c:"Character",     e:"She is ___ and often shares her lunch.",          h:"dermawan"},
+{w:"creative",      d:"good at making new ideas",                 c:"Character",     e:"She is a very ___ student.",                      h:"kreatif"},
+{w:"careful",       d:"giving attention to avoid mistakes",       c:"Character",     e:"Be ___ when you cross the road.",                 h:"hati-hati"},
+{w:"friendly",      d:"kind and pleasant to others",              c:"Character",     e:"Our new neighbour is very ___.",                  h:"ramah"},
+{w:"lazy",          d:"not wanting to work",                      c:"Character",     e:"Do not be ___; finish your homework.",            h:"malas"},
+{w:"confident",     d:"feeling sure about yourself",              c:"Character",     e:"She is ___ when she speaks in public.",           h:"percaya diri"},
 {w:"improve",       d:"to make or become better",                 c:"Verbs",         e:"I want to ___ my English.",                       h:"meningkatkan"},
 {w:"prepare",       d:"to get ready",                             c:"Verbs",         e:"We must ___ for the exam.",                       h:"mempersiapkan"},
 {w:"discuss",       d:"to talk about something with others",      c:"Verbs",         e:"Let's ___ the problem together.",                 h:"mendiskusikan"},
@@ -526,15 +723,44 @@ menengah: [
 {w:"imagine",       d:"to form a picture in your mind",           c:"Verbs",         e:"___ you are on a beautiful island.",              h:"membayangkan"},
 {w:"discover",      d:"to find something for the first time",     c:"Verbs",         e:"Scientists ___ a new species.",                   h:"menemukan"},
 {w:"celebrate",     d:"to do something special for an event",     c:"Verbs",         e:"We ___ Independence Day every August.",           h:"merayakan"},
+{w:"suggest",       d:"to give an idea for someone to think about",c:"Verbs",        e:"I ___ we go to the beach.",                       h:"menyarankan"},
+{w:"recommend",     d:"to say something is good to use or try",   c:"Verbs",         e:"Can you ___ a good book?",                        h:"merekomendasikan"},
+{w:"refuse",        d:"to say no to something",                   c:"Verbs",         e:"She ___d to help us.",                            h:"menolak"},
+{w:"accept",        d:"to agree to take something",               c:"Verbs",         e:"Please ___ this small gift.",                     h:"menerima"},
+{w:"allow",         d:"to give permission",                       c:"Verbs",         e:"My parents ___ me to play outside.",              h:"mengizinkan"},
+{w:"promise",       d:"to say you will certainly do something",   c:"Verbs",         e:"I ___ to call you tonight.",                      h:"berjanji"},
+{w:"remind",        d:"to help someone remember",                 c:"Verbs",         e:"Please ___ me to bring my book.",                 h:"mengingatkan"},
 {w:"achievement",   d:"something done successfully",              c:"Nouns",         e:"Winning the medal was a great ___.",              h:"pencapaian"},
 {w:"opportunity",   d:"a chance to do something",                 c:"Nouns",         e:"This is a good ___ to learn.",                    h:"kesempatan"},
 {w:"responsibility",d:"something you must take care of",          c:"Nouns",         e:"Cleaning the classroom is our ___.",              h:"tanggung jawab"},
-{w:"confident",     d:"feeling sure about yourself",              c:"Character",     e:"She is ___ when she speaks in public.",           h:"percaya diri"},
+{w:"success",       d:"doing something well",                     c:"Nouns",         e:"Hard work leads to ___.",                         h:"kesuksesan"},
+{w:"problem",       d:"something difficult that needs solving",   c:"Nouns",         e:"We must solve this ___.",                         h:"masalah"},
+{w:"solution",      d:"an answer to a problem",                   c:"Nouns",         e:"There is always a ___ to every problem.",         h:"solusi"},
+{w:"reason",        d:"why something happens",                    c:"Nouns",         e:"What is the ___ for your absence?",               h:"alasan"},
+{w:"result",        d:"something that happens because of an action",c:"Nouns",       e:"The ___ of the exam will be out tomorrow.",       h:"hasil"},
 {w:"exercise",      d:"physical activity to stay healthy",        c:"Health",        e:"I do ___ every morning.",                         h:"olahraga"},
 {w:"healthy",       d:"strong and not sick",                      c:"Health",        e:"Eat vegetables to stay ___.",                     h:"sehat"},
 {w:"medicine",      d:"something you take when you are sick",     c:"Health",        e:"Take this ___ twice a day.",                      h:"obat"},
 {w:"advice",        d:"an opinion about what someone should do",  c:"Communication", e:"My teacher gave me good ___.",                    h:"nasihat"},
-{w:"opinion",       d:"what you think about something",           c:"Communication", e:"In my ___, this book is great.",                  h:"pendapat"}
+{w:"opinion",       d:"what you think about something",           c:"Communication", e:"In my ___, this book is great.",                  h:"pendapat"},
+{w:"conversation",  d:"a talk between two or more people",        c:"Communication", e:"We had a long ___ about the trip.",               h:"percakapan"},
+{w:"interview",     d:"a meeting where someone asks you questions",c:"Communication",e:"She has a job ___ tomorrow.",                     h:"wawancara"},
+{w:"language",      d:"the words people use to communicate",      c:"Communication", e:"English is a global ___.",                        h:"bahasa"},
+{w:"translate",     d:"to change words into another language",    c:"Communication", e:"Can you ___ this sentence?",                      h:"menerjemahkan"},
+{w:"information",   d:"facts about something",                    c:"Communication", e:"Please give me more ___.",                        h:"informasi"},
+{w:"computer",      d:"an electronic machine for work and study", c:"Technology",    e:"I do my homework on a ___.",                      h:"komputer"},
+{w:"internet",      d:"a system that connects computers worldwide",c:"Technology",   e:"The ___ is very slow today.",                     h:"internet"},
+{w:"password",      d:"a secret word to open an account",         c:"Technology",    e:"Do not share your ___.",                          h:"kata sandi"},
+{w:"email",         d:"a message sent electronically",            c:"Technology",    e:"I sent an ___ to my teacher.",                    h:"surel"},
+{w:"website",       d:"a page or set of pages on the internet",   c:"Technology",    e:"The school ___ has the schedule.",                h:"situs web"},
+{w:"download",      d:"to copy a file from the internet",         c:"Technology",    e:"You can ___ the app for free.",                   h:"unduh"},
+{w:"screen",        d:"the flat part of a device that shows images",c:"Technology",  e:"Please look at the ___.",                         h:"layar"},
+{w:"message",       d:"a short piece of information you send",    c:"Technology",    e:"I got your ___ this morning.",                    h:"pesan"},
+{w:"climate",       d:"the usual weather in a place",             c:"Environment",   e:"The ___ is changing quickly.",                    h:"iklim"},
+{w:"forest",        d:"a large area covered with trees",          c:"Environment",   e:"Many animals live in the ___.",                   h:"hutan"},
+{w:"flood",         d:"a lot of water covering dry land",         c:"Environment",   e:"The heavy rain caused a ___.",                    h:"banjir"},
+{w:"waste",         d:"material that is thrown away",             c:"Environment",   e:"Please do not ___ water.",                        h:"limbah/boros"},
+{w:"energy",        d:"power from electricity, heat, or fuel",    c:"Environment",   e:"We should save ___.",                             h:"energi"}
 ],
 
 /* ---------------- LANCAR (Upper-Intermediate) ---------------- */
@@ -583,7 +809,32 @@ lancar: [
 {w:"influence",   d:"the power to change someone",              c:"Academic",      e:"Friends have a strong ___ on us.",                h:"pengaruh"},
 {w:"innovative",  d:"new and creative",                         c:"Academic",      e:"The team came up with an ___ idea.",              h:"inovatif"},
 {w:"sufficient",  d:"enough",                                   c:"Academic",      e:"We have ___ time to finish.",                     h:"cukup"},
-{w:"maintain",    d:"to keep something in good condition",      c:"Academic",      e:"We must ___ the machines regularly.",             h:"memelihara"}
+{w:"maintain",    d:"to keep something in good condition",      c:"Academic",      e:"We must ___ the machines regularly.",             h:"memelihara"},
+{w:"hypothesis",  d:"an idea to be tested by research",         c:"Academic",      e:"We tested our ___ in the lab.",                   h:"hipotesis"},
+{w:"theory",      d:"an idea that explains something",          c:"Academic",      e:"Darwin's ___ changed science.",                   h:"teori"},
+{w:"method",      d:"a way of doing something",                 c:"Academic",      e:"This ___ is faster and cheaper.",                 h:"metode"},
+{w:"research",    d:"careful study to discover facts",          c:"Academic",      e:"She does ___ on climate change.",                 h:"penelitian"},
+{w:"survey",      d:"a set of questions to collect information",c:"Academic",      e:"We conducted a ___ of 200 students.",             h:"survei"},
+{w:"data",        d:"facts and numbers collected for study",    c:"Academic",      e:"The ___ shows an interesting trend.",             h:"data"},
+{w:"conclusion",  d:"a decision reached after thinking",        c:"Academic",      e:"What is your ___ from the study?",                h:"kesimpulan"},
+{w:"factor",      d:"one of the things that influences a result",c:"Academic",     e:"Price is a key ___ in choosing a phone.",         h:"faktor"},
+{w:"trend",       d:"a general direction of change",            c:"Academic",      e:"There is a growing ___ of online learning.",      h:"tren"},
+{w:"source",      d:"where information comes from",             c:"Academic",      e:"Always cite your ___.",                           h:"sumber"},
+{w:"participate", d:"to take part in something",                c:"Verbs",         e:"All students must ___ in the discussion.",        h:"berpartisipasi"},
+{w:"negotiate",   d:"to discuss to reach an agreement",         c:"Verbs",         e:"They will ___ a new contract.",                   h:"bernegosiasi"},
+{w:"motivate",    d:"to make someone want to do something",     c:"Verbs",         e:"Good teachers ___ their students.",               h:"memotivasi"},
+{w:"summarise",   d:"to give the main points briefly",          c:"Verbs",         e:"Please ___ the article in one paragraph.",        h:"meringkas"},
+{w:"clarify",     d:"to make something clearer",                c:"Verbs",         e:"Could you ___ your question?",                    h:"memperjelas"},
+{w:"reliable",    d:"can be trusted to do what is expected",    c:"Character",     e:"She is a ___ worker.",                            h:"dapat diandalkan"},
+{w:"determined",  d:"having a strong wish to succeed",          c:"Character",     e:"He is ___ to finish the marathon.",               h:"bertekad"},
+{w:"optimistic",  d:"expecting good things to happen",          c:"Character",     e:"Try to stay ___ about the future.",               h:"optimistis"},
+{w:"tolerant",    d:"accepting of differences",                 c:"Character",     e:"We must be ___ of other cultures.",               h:"toleran"},
+{w:"independent", d:"not needing help from others",             c:"Character",     e:"She is an ___ learner.",                          h:"mandiri"},
+{w:"persuade",    d:"to make someone agree by giving reasons",  c:"Communication", e:"He tried to ___ me to join.",                     h:"membujuk"},
+{w:"convey",      d:"to communicate an idea or feeling",        c:"Communication", e:"Words cannot ___ my thanks.",                     h:"menyampaikan"},
+{w:"announce",    d:"to tell people about something officially",c:"Communication", e:"The school will ___ the winners.",                h:"mengumumkan"},
+{w:"propose",     d:"to suggest a plan formally",               c:"Communication", e:"They will ___ a new rule.",                       h:"mengusulkan"},
+{w:"respond",     d:"to answer or react",                       c:"Communication", e:"Please ___ to my email soon.",                    h:"menanggapi"}
 ],
 
 /* ---------------- MAHIR (Advanced) ---------------- */
@@ -616,7 +867,7 @@ mahir: [
 {w:"dominate",     d:"to control or have most power",             c:"Advanced", e:"One team ___ the whole match.",              h:"mendominasi"},
 {w:"elaborate",    d:"having many details",                       c:"Advanced", e:"She gave an ___ explanation.",               h:"terperinci"},
 {w:"emerge",       d:"to appear or come out",                     c:"Advanced", e:"New evidence began to ___.",                 h:"muncul"},
-{w:"enhance",      d:"to improve the quality",                    c:"Advanced", e:"Music can ___ the mood.",                   h:"meningkatkan"},
+{w:"enhance",      d:"to improve the quality",                    c:"Advanced", e:"Music can ___ the mood.",                    h:"meningkatkan"},
 {w:"equivalent",   d:"equal in value or meaning",                 c:"Advanced", e:"One dollar is ___ to about 15,000 rupiah.",  h:"setara"},
 {w:"exaggerate",   d:"to describe something as bigger than it is",c:"Advanced", e:"Don't ___ the problem.",                     h:"membesar-besarkan"},
 {w:"explicit",     d:"stated clearly and directly",               c:"Advanced", e:"The rules are very ___.",                    h:"eksplisit"},
@@ -632,7 +883,32 @@ mahir: [
 {w:"manipulate",   d:"to control unfairly",                       c:"Advanced", e:"Some ads ___ consumers.",                    h:"memanipulasi"},
 {w:"neutral",      d:"not supporting either side",                c:"Advanced", e:"The judge must stay ___.",                   h:"netral"},
 {w:"precise",      d:"exact and accurate",                        c:"Advanced", e:"Give me the ___ number.",                    h:"tepat"},
-{w:"reluctant",    d:"not willing to do something",               c:"Advanced", e:"He was ___ to answer.",                      h:"enggan"}
+{w:"reluctant",    d:"not willing to do something",               c:"Advanced", e:"He was ___ to answer.",                      h:"enggan"},
+{w:"plausible",    d:"seeming reasonable or probable",            c:"Advanced", e:"His excuse sounded ___.",                    h:"masuk akal"},
+{w:"profound",     d:"very deep or serious",                      c:"Advanced", e:"The book had a ___ effect on me.",           h:"mendalam"},
+{w:"prominent",    d:"important and well known",                  c:"Advanced", e:"She is a ___ scientist.",                    h:"terkemuka"},
+{w:"redundant",    d:"not needed because it repeats something",   c:"Advanced", e:"The last paragraph is ___.",                 h:"mubazir"},
+{w:"resilient",    d:"able to recover quickly from difficulty",   c:"Advanced", e:"Children are often very ___.",               h:"tangguh"},
+{w:"rigorous",     d:"very careful and thorough",                 c:"Advanced", e:"The test was very ___.",                     h:"ketat"},
+{w:"robust",       d:"strong and unlikely to break",              c:"Advanced", e:"We need a ___ system.",                      h:"tangguh"},
+{w:"subtle",       d:"not obvious; delicate",                     c:"Advanced", e:"There was a ___ change in his tone.",        h:"halus"},
+{w:"substantial",  d:"large in size or amount",                   c:"Advanced", e:"They made a ___ profit.",                    h:"besar"},
+{w:"superficial",  d:"only on the surface; not deep",             c:"Advanced", e:"His knowledge is only ___.",                 h:"dangkal"},
+{w:"tedious",      d:"boring because it is long and slow",        c:"Advanced", e:"The lecture was quite ___.",                 h:"membosankan"},
+{w:"transparent",  d:"clear and easy to understand",              c:"Advanced", e:"The process must be ___.",                   h:"transparan"},
+{w:"trivial",      d:"not important",                             c:"Advanced", e:"Don't worry about ___ problems.",            h:"sepele"},
+{w:"unanimous",    d:"agreed by everyone",                        c:"Advanced", e:"The vote was ___.",                          h:"bulat"},
+{w:"viable",       d:"possible and practical",                    c:"Advanced", e:"Is this plan ___?",                          h:"layak"},
+{w:"vivid",        d:"very clear in the mind",                    c:"Advanced", e:"I have a ___ memory of that day.",           h:"jelas"},
+{w:"vulnerable",   d:"easy to be harmed",                         c:"Advanced", e:"Young children are ___.",                    h:"rentan"},
+{w:"diligent",     d:"working hard and carefully",                c:"Advanced", e:"She is a ___ student.",                      h:"rajin"},
+{w:"discreet",     d:"careful not to attract attention",          c:"Advanced", e:"He made a ___ exit.",                        h:"hati-hati"},
+{w:"genuine",      d:"real and honest",                           c:"Advanced", e:"She showed ___ interest in our work.",        h:"tulus"},
+{w:"impartial",    d:"treating all sides equally",                c:"Advanced", e:"A judge must be ___.",                       h:"adil/tidak memihak"},
+{w:"intricate",    d:"having many small parts; complicated",      c:"Advanced", e:"The pattern is very ___.",                   h:"rumit"},
+{w:"mediocre",     d:"not very good",                             c:"Advanced", e:"The film was rather ___.",                   h:"biasa saja"},
+{w:"negligible",   d:"too small to matter",                       c:"Advanced", e:"The difference is ___.",                     h:"dapat diabaikan"},
+{w:"tenacious",    d:"holding on firmly; not giving up",          c:"Advanced", e:"He is a ___ competitor.",                    h:"gigih"}
 ],
 
 /* ---------------- AHLI (Expert) ---------------- */
@@ -681,78 +957,107 @@ ahli: [
 {w:"innocuous",    d:"harmless",                                  c:"Expert", e:"The remark seemed ___.",                     h:"tak berbahaya"},
 {w:"insidious",    d:"harmful in a slow hidden way",              c:"Expert", e:"The disease is ___.",                        h:"berbahaya diam-diam"},
 {w:"intrepid",     d:"brave and fearless",                        c:"Expert", e:"The ___ explorer crossed the desert.",       h:"pemberani"},
-{w:"lucid",        d:"clear and easy to understand",              c:"Expert", e:"He gave a ___ explanation.",                 h:"jelas"}
+{w:"lucid",        d:"clear and easy to understand",              c:"Expert", e:"He gave a ___ explanation.",                 h:"jelas"},
+{w:"abstruse",     d:"difficult to understand",                   c:"Expert", e:"The philosopher's ideas are ___.",          h:"sulit dipahami"},
+{w:"acumen",       d:"sharp judgement in a particular field",     c:"Expert", e:"She has great business ___.",               h:"kecerdasan"},
+{w:"adamant",      d:"refusing to change your mind",              c:"Expert", e:"He was ___ about leaving early.",           h:"keras kepala"},
+{w:"alleviate",    d:"to make pain or trouble less severe",       c:"Expert", e:"The medicine will ___ the pain.",           h:"meringankan"},
+{w:"ambivalent",   d:"having mixed feelings",                     c:"Expert", e:"I feel ___ about moving abroad.",           h:"ambivalen"},
+{w:"anomaly",      d:"something that is different from the norm", c:"Expert", e:"The test result is an ___.",                h:"anomali"},
+{w:"apathy",       d:"lack of interest or concern",               c:"Expert", e:"Voter ___ is a big problem.",               h:"apatis"},
+{w:"arduous",      d:"needing a lot of effort",                   c:"Expert", e:"It was an ___ journey.",                   h:"sulit"},
+{w:"ascertain",    d:"to find out for certain",                   c:"Expert", e:"We must ___ the cause of the fire.",        h:"memastikan"},
+{w:"audacious",    d:"brave and surprising",                      c:"Expert", e:"It was an ___ plan.",                       h:"berani"},
+{w:"augment",      d:"to make larger or better",                  c:"Expert", e:"They ___ their income with a side job.",     h:"menambah"},
+{w:"austere",      d:"simple and without comfort",                c:"Expert", e:"The room had an ___ style.",                h:"sederhana keras"},
+{w:"banal",        d:"boring because too common",                 c:"Expert", e:"The speech was ___.",                       h:"klise"},
+{w:"belittle",     d:"to make someone seem unimportant",          c:"Expert", e:"Don't ___ your own achievements.",          h:"merendahkan"},
+{w:"benign",       d:"kind and gentle; not harmful",              c:"Expert", e:"It was a ___ tumour.",                      h:"jinak"},
+{w:"bolster",      d:"to support or strengthen",                  c:"Expert", e:"The new data ___s our theory.",             h:"memperkuat"},
+{w:"censure",      d:"strong official criticism",                 c:"Expert", e:"The politician faced public ___.",           h:"kecaman"},
+{w:"circumvent",   d:"to find a way around a rule",               c:"Expert", e:"Some companies ___ the tax law.",           h:"mengakali"},
+{w:"coalesce",     d:"to come together into one group",           c:"Expert", e:"The groups ___d into one party.",            h:"bergabung"},
+{w:"compatible",   d:"able to exist or work together",            c:"Expert", e:"This software is ___ with most phones.",    h:"kompatibel"},
+{w:"complacent",   d:"too satisfied with yourself",               c:"Expert", e:"Don't become ___ after one success.",       h:"berpuas diri"},
+{w:"concur",       d:"to agree",                                  c:"Expert", e:"I ___ with your opinion.",                 h:"setuju"},
+{w:"condone",      d:"to accept bad behaviour",                   c:"Expert", e:"We cannot ___ bullying.",                  h:"membiarkan"},
+{w:"conducive",    d:"helping to make something happen",          c:"Expert", e:"The environment is ___ to learning.",       h:"mendukung"},
+{w:"constrain",    d:"to limit or restrict",                      c:"Expert", e:"Low funds ___ our plan.",                  h:"membatasi"},
+{w:"contemplate",  d:"to think about something deeply",           c:"Expert", e:"She is ___ a career change.",              h:"merenungkan"},
+{w:"corroborate",  d:"to support with evidence",                  c:"Expert", e:"Another witness ___d her story.",           h:"menguatkan"},
+{w:"culminate",    d:"to reach the final point",                  c:"Expert", e:"The festival will ___ in a big parade.",    h:"berujung"},
+{w:"deplete",      d:"to use up completely",                      c:"Expert", e:"The long drought ___d the wells.",          h:"menghabiskan"}
 ]
 };
 
 /* ==================================================================
-   2. PASANGAN SINONIM & ANTONIM (menambah variasi soal)
+   2. PASANGAN SINONIM & ANTONIM (+ arti Indonesia)
    ================================================================== */
 const SYN_ANT = [
   // Dasar
-  {a:"big",      b:"large",     t:"syn", l:"dasar"},
-  {a:"small",    b:"tiny",      t:"syn", l:"dasar"},
-  {a:"happy",    b:"glad",      t:"syn", l:"dasar"},
-  {a:"sad",      b:"unhappy",   t:"syn", l:"dasar"},
-  {a:"hot",      b:"cold",      t:"ant", l:"dasar"},
-  {a:"fast",     b:"slow",      t:"ant", l:"dasar"},
-  {a:"big",      b:"small",     t:"ant", l:"dasar"},
-  {a:"happy",    b:"sad",       t:"ant", l:"dasar"},
-  {a:"clean",    b:"dirty",     t:"ant", l:"dasar"},
-  {a:"day",      b:"night",     t:"ant", l:"dasar"},
+  {a:"big",      b:"large",     t:"syn", l:"dasar", h:"besar"},
+  {a:"small",    b:"tiny",      t:"syn", l:"dasar", h:"kecil"},
+  {a:"happy",    b:"glad",      t:"syn", l:"dasar", h:"senang"},
+  {a:"sad",      b:"unhappy",   t:"syn", l:"dasar", h:"sedih"},
+  {a:"hot",      b:"cold",      t:"ant", l:"dasar", h:"panas ↔ dingin"},
+  {a:"fast",     b:"slow",      t:"ant", l:"dasar", h:"cepat ↔ lambat"},
+  {a:"big",      b:"small",     t:"ant", l:"dasar", h:"besar ↔ kecil"},
+  {a:"happy",    b:"sad",       t:"ant", l:"dasar", h:"senang ↔ sedih"},
+  {a:"clean",    b:"dirty",     t:"ant", l:"dasar", h:"bersih ↔ kotor"},
+  {a:"day",      b:"night",     t:"ant", l:"dasar", h:"siang ↔ malam"},
   // Pemula
-  {a:"easy",     b:"simple",    t:"syn", l:"pemula"},
-  {a:"difficult",b:"hard",      t:"syn", l:"pemula"},
-  {a:"begin",    b:"start",     t:"syn", l:"pemula"},
-  {a:"buy",      b:"purchase",  t:"syn", l:"pemula"},
-  {a:"easy",     b:"difficult", t:"ant", l:"pemula"},
-  {a:"early",    b:"late",      t:"ant", l:"pemula"},
-  {a:"young",    b:"old",       t:"ant", l:"pemula"},
-  {a:"strong",   b:"weak",      t:"ant", l:"pemula"},
-  {a:"open",     b:"close",     t:"ant", l:"pemula"},
-  {a:"give",     b:"take",      t:"ant", l:"pemula"},
+  {a:"easy",     b:"simple",    t:"syn", l:"pemula", h:"mudah"},
+  {a:"difficult",b:"hard",      t:"syn", l:"pemula", h:"sulit"},
+  {a:"begin",    b:"start",     t:"syn", l:"pemula", h:"mulai"},
+  {a:"buy",      b:"purchase",  t:"syn", l:"pemula", h:"membeli"},
+  {a:"easy",     b:"difficult", t:"ant", l:"pemula", h:"mudah ↔ sulit"},
+  {a:"early",    b:"late",      t:"ant", l:"pemula", h:"awal ↔ akhir"},
+  {a:"young",    b:"old",       t:"ant", l:"pemula", h:"muda ↔ tua"},
+  {a:"strong",   b:"weak",      t:"ant", l:"pemula", h:"kuat ↔ lemah"},
+  {a:"open",     b:"close",     t:"ant", l:"pemula", h:"buka ↔ tutup"},
+  {a:"give",     b:"take",      t:"ant", l:"pemula", h:"beri ↔ ambil"},
   // Menengah
-  {a:"brave",    b:"courageous",t:"syn", l:"menengah"},
-  {a:"honest",   b:"truthful",  t:"syn", l:"menengah"},
-  {a:"polite",   b:"courteous", t:"syn", l:"menengah"},
-  {a:"famous",   b:"well-known",t:"syn", l:"menengah"},
-  {a:"improve",  b:"enhance",   t:"syn", l:"menengah"},
-  {a:"generous", b:"stingy",    t:"ant", l:"menengah"},
-  {a:"polite",   b:"rude",      t:"ant", l:"menengah"},
-  {a:"honest",   b:"dishonest", t:"ant", l:"menengah"},
-  {a:"increase", b:"decrease",  t:"ant", l:"menengah"},
-  {a:"arrive",   b:"depart",    t:"ant", l:"menengah"},
+  {a:"brave",    b:"courageous",t:"syn", l:"menengah", h:"berani"},
+  {a:"honest",   b:"truthful",  t:"syn", l:"menengah", h:"jujur"},
+  {a:"polite",   b:"courteous", t:"syn", l:"menengah", h:"sopan"},
+  {a:"famous",   b:"well-known",t:"syn", l:"menengah", h:"terkenal"},
+  {a:"improve",  b:"enhance",   t:"syn", l:"menengah", h:"meningkatkan"},
+  {a:"generous", b:"stingy",    t:"ant", l:"menengah", h:"dermawan ↔ pelit"},
+  {a:"polite",   b:"rude",      t:"ant", l:"menengah", h:"sopan ↔ kasar"},
+  {a:"honest",   b:"dishonest", t:"ant", l:"menengah", h:"jujur ↔ curang"},
+  {a:"increase", b:"decrease",  t:"ant", l:"menengah", h:"naik ↔ turun"},
+  {a:"arrive",   b:"depart",    t:"ant", l:"menengah", h:"tiba ↔ berangkat"},
   // Lancar
-  {a:"crucial",  b:"essential", t:"syn", l:"lancar"},
-  {a:"accurate", b:"precise",   t:"syn", l:"lancar"},
-  {a:"expand",   b:"enlarge",   t:"syn", l:"lancar"},
-  {a:"evaluate", b:"assess",    t:"syn", l:"lancar"},
-  {a:"flexible", b:"rigid",     t:"ant", l:"lancar"},
-  {a:"expand",   b:"shrink",    t:"ant", l:"lancar"},
-  {a:"increase", b:"decline",   t:"ant", l:"lancar"},
-  {a:"efficient",b:"wasteful",  t:"ant", l:"lancar"},
+  {a:"crucial",  b:"essential", t:"syn", l:"lancar", h:"krusial"},
+  {a:"accurate", b:"precise",   t:"syn", l:"lancar", h:"akurat"},
+  {a:"expand",   b:"enlarge",   t:"syn", l:"lancar", h:"memperluas"},
+  {a:"evaluate", b:"assess",    t:"syn", l:"lancar", h:"mengevaluasi"},
+  {a:"flexible", b:"rigid",     t:"ant", l:"lancar", h:"fleksibel ↔ kaku"},
+  {a:"expand",   b:"shrink",    t:"ant", l:"lancar", h:"memperluas ↔ menyusut"},
+  {a:"increase", b:"decline",   t:"ant", l:"lancar", h:"naik ↔ menurun"},
+  {a:"efficient",b:"wasteful",  t:"ant", l:"lancar", h:"efisien ↔ boros"},
   // Mahir
-  {a:"abundant", b:"plentiful", t:"syn", l:"mahir"},
-  {a:"authentic",b:"genuine",   t:"syn", l:"mahir"},
-  {a:"diverse",  b:"varied",    t:"syn", l:"mahir"},
-  {a:"enhance",  b:"improve",   t:"syn", l:"mahir"},
-  {a:"ambiguous",b:"unclear",   t:"syn", l:"mahir"},
-  {a:"abundant", b:"scarce",    t:"ant", l:"mahir"},
-  {a:"increase", b:"diminish",  t:"ant", l:"mahir"},
-  {a:"praise",   b:"criticise", t:"ant", l:"mahir"},
-  {a:"temporary",b:"permanent", t:"ant", l:"mahir"},
-  {a:"victory",  b:"defeat",    t:"ant", l:"mahir"},
+  {a:"abundant", b:"plentiful", t:"syn", l:"mahir", h:"berlimpah"},
+  {a:"authentic",b:"genuine",   t:"syn", l:"mahir", h:"asli"},
+  {a:"diverse",  b:"varied",    t:"syn", l:"mahir", h:"beragam"},
+  {a:"enhance",  b:"improve",   t:"syn", l:"mahir", h:"meningkatkan"},
+  {a:"ambiguous",b:"unclear",   t:"syn", l:"mahir", h:"ambigu"},
+  {a:"abundant", b:"scarce",    t:"ant", l:"mahir", h:"berlimpah ↔ langka"},
+  {a:"increase", b:"diminish",  t:"ant", l:"mahir", h:"naik ↔ berkurang"},
+  {a:"praise",   b:"criticise", t:"ant", l:"mahir", h:"memuji ↔ mengkritik"},
+  {a:"temporary",b:"permanent", t:"ant", l:"mahir", h:"sementara ↔ permanen"},
+  {a:"victory",  b:"defeat",    t:"ant", l:"mahir", h:"kemenangan ↔ kekalahan"},
   // Ahli
-  {a:"ubiquitous",b:"omnipresent",t:"syn",l:"ahli"},
-  {a:"meticulous",b:"careful",    t:"syn",l:"ahli"},
-  {a:"candid",    b:"frank",      t:"syn",l:"ahli"},
-  {a:"lucid",     b:"clear",      t:"syn",l:"ahli"},
-  {a:"benevolent",b:"kind",       t:"syn",l:"ahli"},
-  {a:"frugal",    b:"extravagant",t:"ant",l:"ahli"},
-  {a:"gregarious",b:"solitary",   t:"ant",l:"ahli"},
-  {a:"innocuous", b:"harmful",    t:"ant",l:"ahli"},
-  {a:"ephemeral", b:"permanent",  t:"ant",l:"ahli"},
-  {a:"intrepid",  b:"cowardly",   t:"ant",l:"ahli"}
+  {a:"ubiquitous",b:"omnipresent",t:"syn",l:"ahli", h:"ada di mana-mana"},
+  {a:"meticulous",b:"careful",    t:"syn",l:"ahli", h:"teliti"},
+  {a:"candid",    b:"frank",      t:"syn",l:"ahli", h:"jujur"},
+  {a:"lucid",     b:"clear",      t:"syn",l:"ahli", h:"jelas"},
+  {a:"benevolent",b:"kind",       t:"syn",l:"ahli", h:"baik hati"},
+  {a:"frugal",    b:"extravagant",t:"ant",l:"ahli", h:"hemat ↔ boros"},
+  {a:"gregarious",b:"solitary",   t:"ant",l:"ahli", h:"suka bergaul ↔ penyendiri"},
+  {a:"innocuous", b:"harmful",    t:"ant",l:"ahli", h:"tak berbahaya ↔ berbahaya"},
+  {a:"ephemeral", b:"permanent",  t:"ant",l:"ahli", h:"sementara ↔ permanen"},
+  {a:"intrepid",  b:"cowardly",   t:"ant",l:"ahli", h:"pemberani ↔ pengecut"}
 ];
 
 /* ==================================================================
@@ -778,7 +1083,7 @@ function uniqBy(arr, keyFn){
 }
 
 /* ==================================================================
-   4. PEMBANGUN BANK SOAL
+   4. PEMBANGUN BANK SOAL (dengan terjemahan Indonesia per soal)
    ================================================================== */
 function pickDefs(entries, e, n){
   const seen = new Set([e.d.toLowerCase()]);
@@ -813,16 +1118,20 @@ function buildLevel(levelId, entries){
   const cats = [...new Set(entries.map(e => e.c).filter(Boolean))];
 
   entries.forEach(e => {
+    const meaning = e.h || '';
+
     // A. Kata -> Arti
     const defs = pickDefs(entries, e, 3);
     if(defs.length === 3){
       const options = shuffle([e.d, ...defs]);
       qs.push({
-        level: levelId, type: 'mc',
+        level: levelId, type:'mc',
         tag: '📚 Arti Kata',
         prompt: `What does “${e.w}” mean?`,
+        promptId: `Apa arti kata “${e.w}”?`,
         sub: 'Pilih arti yang paling tepat dalam bahasa Inggris.',
-        options, answer: options.indexOf(e.d)
+        options, answer: options.indexOf(e.d),
+        word: e.w, meaning, speakBefore: true
       });
     }
 
@@ -831,40 +1140,46 @@ function buildLevel(levelId, entries){
     if(ws.length === 3){
       const options = shuffle([e.w, ...ws]);
       qs.push({
-        level: levelId, type: 'mc',
+        level: levelId, type:'mc',
         tag: '🔎 Cari Kata',
         prompt: `Which word means “${e.d}”?`,
-        sub: 'Pilih kata yang sesuai dengan arti di atas.',
-        options, answer: options.indexOf(e.w)
+        promptId: `Kata mana yang berarti “${e.d}”?`,
+        sub: 'Pilih kata bahasa Inggris yang sesuai.',
+        options, answer: options.indexOf(e.w),
+        word: e.w, meaning, speakBefore: false
       });
     }
 
-    // C. Lengkapi kalimat (distraktor beda kategori agar tidak ambigu)
+    // C. Lengkapi kalimat
     if(e.e){
       const dw = pickWords(entries, e, 3, true);
       if(dw.length === 3){
         const options = shuffle([e.w, ...dw]);
         qs.push({
-          level: levelId, type: 'mc',
+          level: levelId, type:'mc',
           tag: '✏️ Lengkapi Kalimat',
           prompt: e.e,
-          sub: 'Pilih kata yang tepat untuk mengisi bagian rumpang.',
-          options, answer: options.indexOf(e.w)
+          promptId: 'Lengkapi kalimat rumpang dengan kata yang tepat.',
+          sub: 'Choose the correct word to fill in the blank.',
+          options, answer: options.indexOf(e.w),
+          word: e.w, meaning, speakBefore: false
         });
       }
     }
 
-    // D. Kategori (hanya jika level punya ≥4 kategori)
+    // D. Kategori
     if(e.c && cats.length >= 4){
       const others = shuffle(cats.filter(c => c !== e.c)).slice(0, 3);
       if(others.length === 3){
         const options = shuffle([e.c, ...others]);
         qs.push({
-          level: levelId, type: 'mc',
+          level: levelId, type:'mc',
           tag: '🗂️ Kategori',
           prompt: `Which category does “${e.w}” belong to?`,
+          promptId: `“${e.w}” termasuk kategori apa?`,
           sub: 'Pilih kategori yang paling tepat.',
-          options, answer: options.indexOf(e.c)
+          options, answer: options.indexOf(e.c),
+          word: e.w, meaning, speakBefore: true
         });
       }
     }
@@ -873,11 +1188,13 @@ function buildLevel(levelId, entries){
     const lw = e.w.toLowerCase();
     if(/^[a-z]{3,10}$/.test(lw)){
       qs.push({
-        level: levelId, type: 'anagram',
+        level: levelId, type:'anagram',
         tag: '🔤 Anagram',
         prompt: 'Susun huruf-huruf ini menjadi kata yang benar',
-        sub: `Petunjuk: ${e.h}`,
-        answer: e.w.toUpperCase()
+        promptId: `Petunjuk: ${meaning}`,
+        sub: '',
+        answer: e.w.toUpperCase(),
+        word: e.w, meaning, speakBefore: false
       });
     }
   });
@@ -907,10 +1224,16 @@ function buildBank(){
       prompt: p.t === 'syn'
         ? `Which word is closest in meaning to “${p.a}”?`
         : `Which word is opposite in meaning to “${p.a}”?`,
+      promptId: p.t === 'syn'
+        ? `Kata mana yang paling dekat maknanya dengan “${p.a}”?`
+        : `Kata mana yang berlawanan makna dengan “${p.a}”?`,
       sub: p.t === 'syn'
         ? 'Pilih kata yang maknanya paling dekat.'
         : 'Pilih kata yang maknanya berlawanan.',
-      options, answer: options.indexOf(p.b)
+      options, answer: options.indexOf(p.b),
+      word: p.a, meaning: p.h || '',
+      speakBefore: true,
+      fbExtra: p.t === 'syn' ? `≈ ${p.b}` : `↔ ${p.b}`
     });
   });
 
@@ -938,7 +1261,7 @@ const state = {
 };
 
 /* ==================================================================
-   6. SUARA
+   6. SUARA (efek + Text-to-Speech)
    ================================================================== */
 let audioCtx = null;
 function beep(freq, dur, type='sine', vol=0.06, delay=0){
@@ -960,6 +1283,31 @@ const soundCorrect = () => { beep(659,0.13); beep(880,0.16,'sine',0.06,0.10); be
 const soundWrong   = () => { beep(220,0.20,'sawtooth',0.04); beep(165,0.24,'sawtooth',0.035,0.11); };
 const soundClick   = () => beep(520,0.05,'square',0.025);
 const soundWin     = () => { [523,659,784,1047].forEach((f,i)=>beep(f,0.22,'sine',0.06,i*0.12)); };
+
+/* Pelafalan kata bahasa Inggris (Web Speech API) */
+function speak(text){
+  if(!text) return;
+  if(!('speechSynthesis' in window)) {
+    showToast('⚠️ Browser tidak mendukung pelafalan', 'no');
+    return;
+  }
+  try{
+    speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = 'en-US';
+    u.rate = 0.85;
+    u.pitch = 1;
+    const voices = speechSynthesis.getVoices();
+    const en = voices.find(v => /en[-_]US/i.test(v.lang)) || voices.find(v => /^en/i.test(v.lang));
+    if(en) u.voice = en;
+    speechSynthesis.speak(u);
+  }catch(e){}
+}
+// Pre-warm voice list (beberapa browser butuh ini)
+if('speechSynthesis' in window){
+  speechSynthesis.getVoices();
+  speechSynthesis.onvoiceschanged = () => {};
+}
 
 /* ==================================================================
    7. NAVIGASI
@@ -986,6 +1334,7 @@ function renderHome(){
       <span class="lv-emoji">${lv.emoji}</span>
       <span class="lv-name">${lv.name}</span>
       <span class="lv-en">${lv.en}</span>
+      <span class="lv-desc">${lv.desc}</span>
       <span class="lv-count">${BANK[lv.id].length} soal</span>`;
     b.addEventListener('click', () => {
       state.level = lv.id;
@@ -997,9 +1346,9 @@ function renderHome(){
 
   const lvObj = LEVELS.find(l => l.id === state.level);
   $('#bankInfo').innerHTML =
-    `Bank soal total: <b>${BANK_TOTAL.toLocaleString('id-ID')} soal</b> • ` +
+    `📚 Bank soal total: <b>${BANK_TOTAL.toLocaleString('id-ID')} soal</b> • ` +
     `Level ${lvObj.emoji} <b>${lvObj.name}</b> menyediakan <b>${BANK[state.level].length} soal</b> ` +
-    `— setiap sesi diacak ulang, jadi tidak bisa mencontek.`;
+    `— setiap sesi diacak ulang.`;
 }
 
 /* ==================================================================
@@ -1039,6 +1388,9 @@ function renderQuestion(){
   state.answered = false;
   state.turn = (state.mode === 'team') ? (state.index % 2) : 0;
 
+  // Sembunyikan feedback dari soal sebelumnya
+  $('#feedbackBox').classList.add('hidden');
+
   const lvObj = LEVELS.find(l => l.id === state.level);
   $('#lvPill').textContent = `${lvObj.emoji} ${lvObj.name}`;
   $('#qCounter').textContent = `${state.index + 1} / ${state.count}`;
@@ -1047,8 +1399,24 @@ function renderQuestion(){
 
   $('#qTag').textContent = q.tag;
   $('#qPrompt').textContent = q.prompt;
-  $('#qSub').textContent = q.sub || '';
-  $('#qSub').style.display = q.sub ? 'block' : 'none';
+
+  // Terjemahan / petunjuk bahasa Indonesia
+  const qSubIdEl = $('#qSubId');
+  qSubIdEl.textContent = q.promptId || '';
+  qSubIdEl.style.display = q.promptId ? 'block' : 'none';
+
+  const qSubEl = $('#qSub');
+  qSubEl.textContent = q.sub || '';
+  qSubEl.style.display = q.sub ? 'block' : 'none';
+
+  // Tombol pelafalan pada prompt
+  const sq = $('#btnSpeakQ');
+  if(q.speakBefore && q.word){
+    sq.classList.remove('hidden');
+    sq.onclick = (e) => { e.stopPropagation(); speak(q.word); };
+  }else{
+    sq.classList.add('hidden');
+  }
 
   renderTeams();
 
@@ -1113,10 +1481,12 @@ function selectMC(i, btn){
   if(i === q.answer){
     btn.classList.add('correct');
     onCorrect();
+    showFeedback(true, q);
   }else{
     btn.classList.add('wrong');
     all[q.answer].classList.add('correct');
     onWrong();
+    showFeedback(false, q);
   }
   finishQuestion();
 }
@@ -1201,11 +1571,39 @@ function checkAnagram(){
     onWrong();
     slots.forEach((s, i) => { s.textContent = q.answer[i]; });
   }
+  showFeedback(ok, q);
   finishQuestion();
 }
 
 /* ==================================================================
-   13. HASIL JAWABAN
+   13. FEEDBACK BELAJAR (arti kata bahasa Indonesia)
+   ================================================================== */
+function showFeedback(correct, q){
+  const box = $('#feedbackBox');
+  box.classList.remove('hidden', 'ok', 'no');
+  box.classList.add(correct ? 'ok' : 'no');
+
+  $('#fbIcon').textContent = correct ? '✅ Benar!' : '❌ Belum tepat';
+
+  const wordTxt = q.fbExtra ? `${q.word} ${q.fbExtra}` : (q.word || '');
+  const meaningTxt = q.meaning
+    ? (q.fbExtra ? `(${q.meaning})` : `= ${q.meaning}`)
+    : '';
+
+  $('#fbWord').textContent = wordTxt;
+  $('#fbMeaning').textContent = meaningTxt;
+
+  const btn = $('#btnSpeakFb');
+  if(q.word){
+    btn.classList.remove('hidden');
+    btn.onclick = () => speak(q.word);
+  }else{
+    btn.classList.add('hidden');
+  }
+}
+
+/* ==================================================================
+   14. HASIL JAWABAN
    ================================================================== */
 function onCorrect(){
   state.correct++;
@@ -1234,7 +1632,7 @@ function nextQuestion(){
 }
 
 /* ==================================================================
-   14. TOAST
+   15. TOAST
    ================================================================== */
 let toastTimer = null;
 function showToast(msg, kind){
@@ -1246,7 +1644,7 @@ function showToast(msg, kind){
 }
 
 /* ==================================================================
-   15. HASIL AKHIR
+   16. HASIL AKHIR
    ================================================================== */
 function showResult(){
   const pct = state.correct / state.count;
@@ -1287,7 +1685,7 @@ function showResult(){
 }
 
 /* ==================================================================
-   16. CONFETTI
+   17. CONFETTI
    ================================================================== */
 const fxCanvas = document.getElementById('fx');
 const fxCtx = fxCanvas.getContext('2d');
@@ -1345,7 +1743,75 @@ function stopConfetti(){
 }
 
 /* ==================================================================
-   17. EVENT BINDING
+   18. KAMUS MINI
+   ================================================================== */
+function renderDict(filter = ''){
+  const list = $('#dictList');
+  list.innerHTML = '';
+  const f = filter.trim().toLowerCase();
+
+  LEVELS.forEach(lv => {
+    const entries = (DATA[lv.id] || []).filter(e => {
+      if(!f) return true;
+      const w = (e.w || '').toLowerCase();
+      const h = (e.h || '').toLowerCase();
+      return w.includes(f) || h.includes(f);
+    });
+    if(!entries.length) return;
+
+    const lvDiv = document.createElement('div');
+    lvDiv.className = 'dict-level';
+    lvDiv.innerHTML = `<h3>${lv.emoji} Level ${lv.name} <small>(${entries.length} kata)</small></h3>`;
+
+    const cats = [...new Set(entries.map(e => e.c).filter(Boolean))];
+    cats.forEach(cat => {
+      const catEntries = entries.filter(e => e.c === cat);
+      const catDiv = document.createElement('div');
+      catDiv.className = 'dict-cat';
+      catDiv.innerHTML = `<h4>${cat}</h4>`;
+      const grid = document.createElement('div');
+      grid.className = 'dict-grid';
+      catEntries.forEach(e => {
+        const item = document.createElement('div');
+        item.className = 'dict-item';
+        item.innerHTML = `
+          <span class="dw"></span>
+          <span class="dm"></span>
+          <button class="dspeak" title="Dengarkan pelafalan">🔊</button>`;
+        item.querySelector('.dw').textContent = e.w;
+        item.querySelector('.dm').textContent = e.h || '';
+        item.querySelector('.dspeak').addEventListener('click', ev => {
+          ev.stopPropagation();
+          speak(e.w);
+        });
+        grid.appendChild(item);
+      });
+      catDiv.appendChild(grid);
+      lvDiv.appendChild(catDiv);
+    });
+    list.appendChild(lvDiv);
+  });
+
+  if(!list.children.length){
+    const p = document.createElement('p');
+    p.className = 'dict-empty';
+    p.textContent = 'Tidak ada kata yang cocok dengan pencarianmu.';
+    list.appendChild(p);
+  }
+}
+
+function openDict(){
+  renderDict('');
+  $('#dictSearch').value = '';
+  $('#dictModal').classList.remove('hidden');
+  setTimeout(() => $('#dictSearch').focus(), 100);
+}
+function closeDict(){
+  $('#dictModal').classList.add('hidden');
+}
+
+/* ==================================================================
+   19. EVENT BINDING
    ================================================================== */
 document.querySelectorAll('#countRow .chip').forEach(b => {
   b.addEventListener('click', () => {
@@ -1377,8 +1843,22 @@ $('#btnMute').addEventListener('click', () => {
   if(!state.muted) soundClick();
 });
 
+/* Kamus */
+$('#btnDict').addEventListener('click', () => { soundClick(); openDict(); });
+$('#btnCloseDict').addEventListener('click', closeDict);
+$('#dictModal').addEventListener('click', (e) => {
+  if(e.target.id === 'dictModal') closeDict();
+});
+$('#dictSearch').addEventListener('input', (e) => renderDict(e.target.value));
+
 /* ---- Keyboard untuk smartboard / laptop ---- */
 document.addEventListener('keydown', (e) => {
+  // Tutup modal dengan Escape
+  if(e.key === 'Escape' && !$('#dictModal').classList.contains('hidden')){
+    closeDict();
+    return;
+  }
+
   const gameActive = $('#screen-game').classList.contains('active');
   if(!gameActive) return;
 
@@ -1399,7 +1879,7 @@ document.addEventListener('keydown', (e) => {
 });
 
 /* ==================================================================
-   18. INIT
+   20. INIT
    ================================================================== */
 renderHome();
 console.log(`Bank soal siap: ${BANK_TOTAL} soal`);
